@@ -6,7 +6,7 @@ import { LiveOpenBets } from '../LiveOpenBets';
 import { sound } from '../../utils/audio';
 
 export const FiveDLotre: React.FC = () => {
-  const { countdown, currentPeriod, isFrozen, fiveDHistory, bets } = useGame();
+  const { countdown, currentPeriod, isFrozen, fiveDHistory } = useGame();
 
   const [selectedColumn, setSelectedColumn] = useState<'A' | 'B' | 'C' | 'D' | 'E' | 'SUM'>('SUM');
   const [betModalOpen, setBetModalOpen] = useState(false);
@@ -38,42 +38,42 @@ export const FiveDLotre: React.FC = () => {
   return (
     <div className="space-y-3 pb-24">
       {/* Header Banner */}
-      <div className="p-3 bg-gradient-to-r from-blue-950/60 via-slate-900 to-slate-950 rounded-2xl border border-blue-500/30 flex items-center justify-between">
+      <div className="p-3 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center font-black">
+          <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-black">
             <CircleDot className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xs text-white">5D LOTRE MATRIX</span>
-              <span className="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1 rounded font-bold">
-                5-BALL LOTTERY
+              <span className="font-extrabold text-xs text-slate-900">5D LOTRE MATRIX</span>
+              <span className="text-[9px] bg-blue-100 text-blue-800 border border-blue-200 px-1 rounded font-bold">
+                5-DIGIT DRAW
               </span>
             </div>
-            <p className="text-[10px] text-slate-400">Position & Matrix Sum Betting</p>
+            <p className="text-[10px] text-slate-500">Pick single balls or total sum from 0 to 45</p>
           </div>
         </div>
       </div>
 
       {/* 5-Ball Display & Timer */}
-      <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 shadow-xl">
+      <div className="rounded-2xl bg-white border border-slate-200 p-4 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-slate-400 uppercase">Period</span>
-            <div className="text-base font-black text-white font-mono">
+            <span className="text-xs font-bold text-slate-500 uppercase">Period</span>
+            <div className="text-base font-black text-slate-900 font-mono">
               5D{currentPeriod.slice(-8)}
             </div>
           </div>
 
           <div className="text-right">
-            <div className="flex items-center justify-end gap-1 text-slate-400 text-xs font-bold uppercase">
-              <Timer className="w-3.5 h-3.5 text-amber-400" />
+            <div className="flex items-center justify-end gap-1 text-slate-500 text-xs font-bold uppercase">
+              <Timer className="w-3.5 h-3.5 text-emerald-600" />
               <span>Time Left</span>
             </div>
-            <span className={`font-mono text-2xl font-black px-2 py-0.5 rounded-lg border mt-0.5 inline-block ${
+            <span className={`font-mono text-2xl font-black px-2.5 py-0.5 rounded-lg border mt-0.5 inline-block ${
               isFrozen
-                ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse'
-                : 'bg-slate-800 border-slate-700 text-amber-400'
+                ? 'bg-red-50 border-red-300 text-red-600'
+                : 'bg-slate-50 border-slate-200 text-slate-900'
             }`}>
               00:{String(countdown).padStart(2, '0')}
             </span>
@@ -81,14 +81,14 @@ export const FiveDLotre: React.FC = () => {
         </div>
 
         {/* 5 Balls Container */}
-        <div className="mt-3 p-3 bg-slate-950 rounded-2xl border border-slate-800 text-center">
+        <div className="mt-3 p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
           <div className="grid grid-cols-5 gap-2">
             {latest5D.balls.map((b, i) => (
               <div key={i} className="flex flex-col items-center">
-                <span className="text-[10px] font-bold text-slate-400 mb-1">
+                <span className="text-[10px] font-bold text-slate-500 mb-1">
                   Ball {ballColumns[i]}
                 </span>
-                <div className={`w-11 h-11 rounded-full gradient-gold flex items-center justify-center font-mono font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20 border-2 border-amber-300 ${
+                <div className={`w-11 h-11 rounded-full bg-white flex items-center justify-center font-mono font-black text-slate-900 text-xl shadow-sm border-2 border-slate-300 ${
                   isFrozen ? 'animate-spin-slow' : ''
                 }`}>
                   {b}
@@ -97,22 +97,22 @@ export const FiveDLotre: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-center gap-3 text-xs font-mono">
-            <span className="text-slate-300">
-              Total Sum: <strong className="text-amber-400">{latest5D.sum}</strong>
+          <div className="mt-3 pt-2 border-t border-slate-200 flex items-center justify-center gap-3 text-xs font-mono">
+            <span className="text-slate-600">
+              Total Sum: <strong className="text-slate-900">{latest5D.sum}</strong>
             </span>
-            <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-200 uppercase font-bold text-[10px]">
+            <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-800 uppercase font-bold text-[10px]">
               {latest5D.size} • {latest5D.parity}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Prominent Live / Open Bets Banner */}
+      {/* Live Open Bets Banner */}
       <LiveOpenBets gameFilter="5d" />
 
       {/* Column Target Selector */}
-      <div className="flex gap-1.5 p-1 bg-slate-900 rounded-xl border border-slate-800 overflow-x-auto">
+      <div className="flex gap-1.5 p-1 bg-white rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
         {(['SUM', 'A', 'B', 'C', 'D', 'E'] as const).map((col) => (
           <button
             key={col}
@@ -122,8 +122,8 @@ export const FiveDLotre: React.FC = () => {
             }}
             className={`flex-1 py-2 px-2 text-xs font-bold rounded-lg transition-all ${
               selectedColumn === col
-                ? 'bg-amber-500 text-slate-950 font-black shadow-md'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-slate-900 text-white font-black'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             {col === 'SUM' ? 'Total Sum' : `Ball ${col}`}
@@ -133,13 +133,13 @@ export const FiveDLotre: React.FC = () => {
 
       {/* Betting Options */}
       {selectedColumn === 'SUM' ? (
-        <div className="p-3.5 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-3">
-          <span className="text-xs font-bold text-slate-300 block">Total Sum 5D Bets (0–45)</span>
+        <div className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+          <span className="text-xs font-bold text-slate-700 block">Total Sum 5D Bets (0–45)</span>
           <div className="grid grid-cols-2 gap-2">
             <button
               disabled={isFrozen}
               onClick={() => handleOpenBet('Total Size', 'Big', 1.96)}
-              className="py-3 rounded-xl gradient-gold text-slate-950 font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2"
+              className="py-3 rounded-xl bg-[#f59e0b] text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2 shadow-sm"
             >
               <span>BIG (23–45)</span>
               <span className="font-mono">1.96x</span>
@@ -148,7 +148,7 @@ export const FiveDLotre: React.FC = () => {
             <button
               disabled={isFrozen}
               onClick={() => handleOpenBet('Total Size', 'Small', 1.96)}
-              className="py-3 rounded-xl bg-sky-500 text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2"
+              className="py-3 rounded-xl bg-[#3b82f6] text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2 shadow-sm"
             >
               <span>SMALL (0–22)</span>
               <span className="font-mono">1.96x</span>
@@ -157,7 +157,7 @@ export const FiveDLotre: React.FC = () => {
             <button
               disabled={isFrozen}
               onClick={() => handleOpenBet('Total Parity', 'Odd', 1.96)}
-              className="py-3 rounded-xl bg-emerald-600 text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2"
+              className="py-3 rounded-xl bg-[#00b977] text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2 shadow-sm"
             >
               <span>ODD</span>
               <span className="font-mono">1.96x</span>
@@ -166,7 +166,7 @@ export const FiveDLotre: React.FC = () => {
             <button
               disabled={isFrozen}
               onClick={() => handleOpenBet('Total Parity', 'Even', 1.96)}
-              className="py-3 rounded-xl bg-purple-600 text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2"
+              className="py-3 rounded-xl bg-[#9c27b0] text-white font-black text-xs uppercase active:scale-95 flex items-center justify-center gap-2 shadow-sm"
             >
               <span>EVEN</span>
               <span className="font-mono">1.96x</span>
@@ -174,12 +174,14 @@ export const FiveDLotre: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="p-3.5 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-3">
+        <div className="p-3.5 bg-white rounded-2xl border border-slate-200 space-y-3 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-300">
+            <span className="text-xs font-bold text-slate-700">
               Predict Single Digit on Ball {selectedColumn}
             </span>
-            <span className="text-[11px] text-amber-400 font-bold font-mono">9.0x Payout</span>
+            <span className="text-[11px] text-emerald-700 font-bold font-mono bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              9.0x Payout
+            </span>
           </div>
 
           <div className="grid grid-cols-5 gap-2">
@@ -188,25 +190,25 @@ export const FiveDLotre: React.FC = () => {
                 key={num}
                 disabled={isFrozen}
                 onClick={() => handleOpenBet(`Ball ${selectedColumn}`, num, 9)}
-                className="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 border border-slate-700 text-white font-mono font-black text-base"
+                className="py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 active:scale-95 border border-slate-200 text-slate-900 font-mono font-black text-base"
               >
                 {num}
               </button>
             ))}
           </div>
 
-          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200">
             <button
               disabled={isFrozen}
               onClick={() => handleOpenBet(`Ball ${selectedColumn} Size`, 'Big', 1.96)}
-              className="py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs"
+              className="py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 font-bold text-xs"
             >
               Big (5–9) • 1.96x
             </button>
             <button
               disabled={isFrozen}
               onClick={() => handleOpenBet(`Ball ${selectedColumn} Size`, 'Small', 1.96)}
-              className="py-2 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-300 font-bold text-xs"
+              className="py-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 font-bold text-xs"
             >
               Small (0–4) • 1.96x
             </button>
@@ -215,20 +217,20 @@ export const FiveDLotre: React.FC = () => {
       )}
 
       {/* History Ledger */}
-      <div className="bg-slate-900/80 rounded-2xl border border-slate-800 overflow-hidden">
-        <div className="grid grid-cols-3 py-2 px-3 bg-slate-800/60 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">
+      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <div className="grid grid-cols-3 py-2 px-3 bg-slate-50 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-wider text-center">
           <span>Period</span>
           <span>5D Balls (A–E)</span>
           <span>Sum Total</span>
         </div>
-        <div className="divide-y divide-slate-800/60 max-h-52 overflow-y-auto">
+        <div className="divide-y divide-slate-100 max-h-52 overflow-y-auto">
           {fiveDHistory.map((rec) => (
             <div key={rec.period} className="grid grid-cols-3 py-2 px-3 text-xs text-center items-center">
-              <span className="font-mono text-slate-400 text-[11px]">{rec.period.slice(-5)}</span>
-              <span className="font-mono font-black text-white text-sm tracking-widest">
+              <span className="font-mono text-slate-600 text-[11px]">{rec.period.slice(-5)}</span>
+              <span className="font-mono font-black text-slate-900 text-sm tracking-widest">
                 {rec.balls.join(' ')}
               </span>
-              <span className="font-mono font-bold text-amber-400">
+              <span className="font-mono font-bold text-slate-800">
                 {rec.sum} ({rec.size})
               </span>
             </div>

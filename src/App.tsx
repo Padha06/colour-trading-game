@@ -22,9 +22,9 @@ const MainAppContent: React.FC = () => {
   const [myBetsOpen, setMyBetsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#070c18] text-slate-100 flex justify-center">
-      {/* Mobile Frame Container (max-w-md on desktop, 100% on mobile) */}
-      <div className="w-full max-w-md min-h-screen bg-[#0b1120] flex flex-col shadow-2xl relative border-x border-slate-800/60">
+    <div className="min-h-screen bg-[#eaedf2] text-slate-900 flex justify-center">
+      {/* Mobile Frame Container (Clean Light Theme) */}
+      <div className="w-full max-w-md min-h-screen bg-[#f1f3f7] flex flex-col shadow-lg relative border-x border-slate-200">
         
         {/* Header */}
         <Header 
@@ -67,8 +67,8 @@ const MainAppContent: React.FC = () => {
         />
 
         <MyBetsModal 
-          isOpen={myBetsOpen}
-          onClose={() => setMyBetsOpen(false)}
+          isOpen={myBetsOpen} 
+          onClose={() => setMyBetsOpen(false)} 
         />
 
         <WinAnnouncementModal />

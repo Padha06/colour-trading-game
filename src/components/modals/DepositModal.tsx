@@ -42,29 +42,29 @@ export const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) =
       deposit(finalAmount);
       setIsProcessing(false);
       onClose();
-    }, 1200);
+    }, 1000);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
       <div 
-        className="w-full max-w-md bg-[#131d31] rounded-3xl border border-slate-700/80 p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-md bg-white rounded-3xl border border-slate-200 p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-extrabold text-sm text-slate-100">Recharge / Deposit</h3>
-              <p className="text-[11px] text-slate-400">Instant UPI & Crypto Rails (India)</p>
+              <h3 className="font-extrabold text-sm text-slate-900">Recharge / Add Balance</h3>
+              <p className="text-[11px] text-slate-500">Fast UPI & Net Banking (Instant Demo)</p>
             </div>
           </div>
           <button 
             onClick={onClose}
-            className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white"
+            className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800"
           >
             <X className="w-4 h-4" />
           </button>
@@ -72,7 +72,7 @@ export const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) =
 
         {/* Amount Selector */}
         <div>
-          <label className="text-xs font-bold text-slate-300 block mb-2">Select Amount</label>
+          <label className="text-xs font-bold text-slate-700 block mb-2">Select Amount</label>
           <div className="grid grid-cols-3 gap-2">
             {amounts.map((amt) => (
               <button
@@ -84,8 +84,8 @@ export const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) =
                 }}
                 className={`py-2.5 rounded-xl border font-mono font-bold text-xs transition-all relative ${
                   selectedAmount === amt && !customAmount
-                    ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-md shadow-amber-500/10'
-                    : 'bg-slate-800/80 border-slate-700 text-slate-300'
+                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs'
+                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
                 ₹{amt.toLocaleString()}
@@ -107,20 +107,20 @@ export const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) =
                 setCustomAmount(e.target.value);
                 setSelectedAmount(0);
               }}
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-mono"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 font-mono"
             />
           </div>
         </div>
 
         {/* Payment Channels */}
         <div>
-          <label className="text-xs font-bold text-slate-300 block mb-2">Payment Channel</label>
+          <label className="text-xs font-bold text-slate-700 block mb-2">Payment Method</label>
           <div className="grid grid-cols-2 gap-2">
             {[
-              { id: 'upi_qr', name: 'Instant UPI QR', badge: 'FASTEST', icon: QrCode },
-              { id: 'phonepe', name: 'PhonePe Direct', badge: 'POPULAR', icon: ShieldCheck },
-              { id: 'gpay', name: 'Google Pay UPI', badge: 'DIRECT', icon: ShieldCheck },
-              { id: 'usdt', name: 'USDT TRC20', badge: 'ZERO RISK', icon: Sparkles },
+              { id: 'upi_qr', name: 'Instant UPI QR', badge: 'FAST', icon: QrCode },
+              { id: 'phonepe', name: 'PhonePe', badge: 'POPULAR', icon: ShieldCheck },
+              { id: 'gpay', name: 'Google Pay', badge: 'DIRECT', icon: ShieldCheck },
+              { id: 'usdt', name: 'USDT Crypto', badge: 'CRYPTO', icon: Sparkles },
             ].map((ch) => {
               const Icon = ch.icon;
               return (
@@ -132,45 +132,45 @@ export const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) =
                   }}
                   className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
                     channel === ch.id
-                      ? 'bg-amber-500/15 border-amber-500 text-amber-300'
-                      : 'bg-slate-800/60 border-slate-700 text-slate-400'
+                      ? 'bg-emerald-50 border-emerald-600 text-emerald-800'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-amber-400" />
+                    <Icon className="w-4 h-4 text-emerald-700" />
                     <div>
-                      <div className="text-xs font-bold text-slate-200">{ch.name}</div>
-                      <span className="text-[9px] text-emerald-400 font-bold">{ch.badge}</span>
+                      <div className="text-xs font-bold text-slate-800">{ch.name}</div>
+                      <span className="text-[9px] text-emerald-700 font-bold">{ch.badge}</span>
                     </div>
                   </div>
-                  {channel === ch.id && <CheckCircle2 className="w-4 h-4 text-amber-400" />}
+                  {channel === ch.id && <CheckCircle2 className="w-4 h-4 text-emerald-700" />}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Mock UPI QR View */}
-        <div className="p-3 bg-slate-900/90 rounded-2xl border border-slate-800 text-center space-y-2">
-          <div className="inline-block p-2 bg-white rounded-xl shadow-inner">
-            <div className="w-28 h-28 bg-slate-950 flex flex-col items-center justify-center rounded-lg p-2 relative overflow-hidden">
-              <QrCode className="w-20 h-20 text-white" />
-              <span className="absolute bottom-1 text-[8px] font-black text-amber-400 uppercase tracking-widest">
+        {/* UPI QR View */}
+        <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-2">
+          <div className="inline-block p-2 bg-white rounded-xl shadow-xs border border-slate-200">
+            <div className="w-24 h-24 bg-slate-900 flex flex-col items-center justify-center rounded-lg p-2 text-white">
+              <QrCode className="w-16 h-16 text-white" />
+              <span className="text-[8px] font-bold uppercase tracking-wider text-emerald-400 mt-0.5">
                 BHIM UPI
               </span>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2 text-xs text-slate-400">
-            <span>UPI ID: <strong className="text-slate-200">royalwinpay@yesbank</strong></span>
+          <div className="flex items-center justify-center gap-2 text-xs text-slate-600">
+            <span>UPI ID: <strong className="text-slate-900">royalwinpay@yesbank</strong></span>
             <button
               onClick={handleCopy}
-              className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+              className="p-1 rounded bg-slate-200 hover:bg-slate-300 text-slate-700"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
           </div>
-          <p className="text-[10px] text-slate-500">Scan via PhonePe, GPay, Paytm or any Indian UPI app</p>
+          <p className="text-[10px] text-slate-500">Scan via PhonePe, Google Pay, Paytm or any UPI app</p>
         </div>
 
         {/* Action Button */}
@@ -178,12 +178,12 @@ export const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) =
           <button
             disabled={isProcessing}
             onClick={handleSimulatePayment}
-            className="w-full py-3 rounded-xl gradient-gold text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-wide shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
           >
             {isProcessing ? (
-              <span>Verifying UPI UTR...</span>
+              <span>Verifying UPI...</span>
             ) : (
-              <span>Simulate Successful Payment ({formatINR(finalAmount)})</span>
+              <span>Simulate Successful Recharge ({formatINR(finalAmount)})</span>
             )}
           </button>
         </div>
